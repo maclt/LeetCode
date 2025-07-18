@@ -1,30 +1,37 @@
 func convert(s string, numRows int) string {
-	if numRows == 1 {
-		return s
-	}
+    if numRows == 1 || len(s) <= numRows {
+        return s
+    }
 
-	l := len(s)
-	mod := (numRows - 1) * 2
-	var ans string
+	zigZag := make(map[int]string)
+    row := 0
+    isDownward := true
 
-	for j := 0; j < numRows; j++ {
-		if j == 0 || j == numRows-1 {
-			for i := 0; i < l; i++ {
-				if i%mod == j {
-					ans = ans + string(s[i])
-				}
-			}
-		} else {
-			for i := 0; i < l; i++ {
-				if i%mod == j {
-					ans = ans + string(s[i])
-				}
-				if i%mod == mod-j {
-					ans = ans + string(s[i])
-				}
-			}
-		}
-	}
+    for _, char := range s {
+        zigZag[row] = zigZag[row] + string(char)
 
-	return ans
+        if isDownward {
+            if row == numRows-1 {
+                isDownward = false
+                row--
+            } else {
+                row++
+            }
+        } else {
+            if row == 0 {
+                isDownward = true
+                row++
+            } else {
+                row--
+            }
+        }
+    }
+
+    var ans string
+
+    for i:=0; i<numRows; i++ {
+        ans = ans + zigZag[i]
+    }
+
+    return ans
 }
