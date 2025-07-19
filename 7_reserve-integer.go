@@ -1,8 +1,5 @@
 import "math"
 
-var MAX_32_INT int = 2147483647
-var MIN_32_INT int = -2147483648
-
 func reverse(x int) int {
     o := len(strconv.Itoa(x)) - 1
     
@@ -23,11 +20,11 @@ func reverse(x int) int {
                 return 0
             }
 
-            if a>0 && (MAX_32_INT -r) < a * n {
+            if a>0 && (math.MaxInt32 -r) < a * n {
                 return 0
             }
 
-            if a<0 && (MIN_32_INT -r) > a * n {
+            if a<0 && (math.MinInt32 -r) > a * n {
                 return 0
             }
         }
